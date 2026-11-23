@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPredict AI Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>✦ EduPredict<span> AI</span></h2>
+
+        <p class="menu-title">MENU</p>
+        <a class="active" href="#">⌂ Overview</a>
+        <a href="#">♙ Student Data</a>
+        <a href="#">◈ Prediction</a>
+        <a href="#">▥ Analytics</a>
+        <a href="#">▤ Reports</a>
+
+        <div class="sidebar-bottom">
+            <a href="#">⚙️
+                 Settings</a>
+                      </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header>
+            <div>
+                <p class="welcome">WELCOME BACK!</p>
+                <h1>Student Performance Dashboard</h1>
+                <p class="subtitle">Monitor, analyze and predict academic outcomes.</p>
+            </div>
+            <div class="profile">👩‍🎓 Admin</div>
+        </header>
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <p>Total Students</p>
+                <h2>1,250</h2>
+                <span>↑ 12% this month</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Average Score</p>
+                <h2>78.5%</h2>
+                <span>↑ 5.2% improvement</span>
+            </div>
+
+            <div class="stat-card">
+                <p>At Risk Students</p>
+                <h2>86</h2>
+                <span>Needs attention</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Prediction Accuracy</p>
+                <h2>94.8%</h2>
+                <span>AI Model Performance</span>
+            </div>
+
+        </section>
+
+        <section class="charts">
+
+            <div class="chart-card">
+                <h3>Performance Overview</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Performance Distribution</h3>
+                <canvas id="distributionChart"></canvas>
+            </div>
+
+        </section>
+
+        <section class="recent">
+            <h3>Recent Student Predictions</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Study Hours</th>
+                        <th>Attendance</th>
+                        <th>Predicted Score</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Student 01</td>
+                        <td>5 Hours</td>
+                        <td>92%</td>
+                        <td>88%</td>
+                        <td class="good">Excellent</td>
+                    </tr>
+
+                    <tr>
+                        <td>Student 02</td>
+                        <td>3 Hours</td>
+                        <td>75%</td>
+                        <td>72%</td>
+                        <td class="average">Average</td>
+                    </tr>
+
+                    <tr>
+                        <td>Student 03</td>
+                        <td>1 Hour</td>
+                        <td>55%</td>
+                        <td>48%</td>
+                        <td class="risk">At Risk</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
