@@ -1,8 +1,8 @@
-Flask
+flask
+gunicorn
 pandas
 numpy
 scikit-learn
 joblib
-gunicorn
 matplotlib
 seaborn

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Analytics Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    background: #10152f;
+    color: white;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.header {
+    margin-bottom: 35px;
+}
+
+.header h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #b8b5d4;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: linear-gradient(135deg, #28245a, #49317a);
+    border: 1px solid #65558e;
+    border-radius: 18px;
+      padding: 28px;
+}
+
+.card h3 {
+    color: #d0c8ed;
+    font-size: 15px;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    font-size: 34px;
+}
+
+.history {
+    margin-top: 35px;
+    background: #201e48;
+    padding: 25px;
+    border-radius: 18px;
+    overflow-x: auto;
+}
+
+.history h2 {
+    margin-bottom: 22px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 550px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #45416b;
+}
+
+th {
+    color: #c4b5fd;
+}
+
+a {
+    display: inline-block;
+    margin-top: 25px;
+    color: #c4b5fd;
+    text-decoration: none;
+}
+
+@media(max-width: 700px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    body {
+        padding: 18px;
+    }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📊 Student Analytics Dashboard</h1>
+        <p>Monitor and analyze student performance predictions.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>📚 Total Predictions</h3>
+            <h2>{{ total_predictions }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>📈 Average Marks</h3>
+            <h2>{{ average_marks }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Highest Marks</h3>
+            <h2>{{ highest_marks }}</h2>
+        </div>
+
+    </div>
+    <div class="history">
+    <h2>📈 Student Performance Analytics</h2>
+
+    <div style="height:350px; position:relative;">
+        <canvas id="performanceChart"></canvas>
+    </div>
+</div>
+    
+
+    
+
+
+    <div class="history">
+
+        <h2>Recent Prediction History</h2>
+
+        <table>
+            <tr>
+                <th>Study Hours</th>
+                <th>Attendance</th>
+                <th>Previous Marks</th>
+                <th>Predicted Marks</th>
+            </tr>
+
+            {% for item in history %}
+            <tr>
+                <td>{{ item["Study Hours"] }}</td>
+                <td>{{ item["Attendance"] }}%</td>
+                <td>{{ item["Previous Marks"] }}</td>
+                <td>{{ item["Predicted Marks"] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">No predictions available yet.</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <a href="{{ url_for('home') }}">← Back to Prediction Page</a>
+
+</div>
+<script>
+const historyData = {{ history | tojson }};
+
+const labels = historyData.map((item, index) => "Student " + (index + 1));
+
+const studyHours = historyData.map(item => Number(item["Study Hours"]));
+const attendance = historyData.map(item => Number(item["Attendance"]));
+const previousMarks = historyData.map(item => Number(item["Previous Marks"]));
+const predictedMarks = historyData.map(item => Number(item["Predicted Marks"]));
+
+new Chart(document.getElementById("performanceChart"), {
+    type: "line",
+    data: {
+        labels: labels,
+        datasets: [
+            {
+                label: "Study Hours",
+                data: studyHours,
+                borderColor: "#a855f7",
+                tension: 0.3
+            },
+            {  label: "Attendance",
+                data: attendance,
+                borderColor: "#22c55e",
+                tension: 0.3
+            },
+            {
+                label: "Previous Marks",
+                data: previousMarks,
+                borderColor: "#f59e0b",
+                tension: 0.3
+            },
+            {
+                label: "Predicted Marks",
+                data: predictedMarks,
+                borderColor: "#38bdf8",
+                tension: 0.3
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: {
+                    color: "white"
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: "white" }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: { color: "white" }
+            }
+        }
+    }
+});
+</script>
+<a href="{{ url_for('download') }}">
+    📥 Download Prediction Report
+</a>
+
+</body>
+</html>

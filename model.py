@@ -7,9 +7,15 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_absolute_error
 
 project_dir = Path(__file__).resolve().parent
+dataset_path = project_dir / "static" / "dataset" / "student.csv"
+
+if not dataset_path.exists():
+    import runpy
+
+    runpy.run_path(str(project_dir / "generate_data.py"))
 
 # Load Dataset
-data = pd.read_csv(project_dir / "static" / "dataset" / "student.csv")
+data = pd.read_csv(dataset_path)
 
 # Features and Target
 X = data[[

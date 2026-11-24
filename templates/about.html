@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #10152f, #25205a, #542b78);
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .about {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            line-height: 1.8;
+        }
+
+        h1 { color: #c4b5fd; }
+        h2 { margin-top: 25px; }
+
+        a {
+            color: #c4b5fd;
+            text-decoration: none;
+             }
+    </style>
+</head>
+
+
+<body>
+    <nav class="navbar">
+    <div class="logo">🎓 StudentAI</div>
+
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('about') }}">About</a>
+    </div>
+</nav>
+
+
+<div class="about">
+
+    <h1>🎓 About Student Performance Predictor</h1>
+
+    <p>
+        This project uses Machine Learning to predict
+        student academic performance based on study hours,
+        attendance and previous marks.
+    </p>
+
+    <h2>🚀 Project Objectives</h2>
+    <p>
+        To analyze academic factors and estimate student
+        performance using a trained Machine Learning model.
+    </p>
+
+    <h2>🛠️ Technologies Used</h2>
+    <p>Python, Flask, HTML, CSS, Machine Learning and CSV.</p>
+
+    <h2>💡 Key Features</h2>
+    <p>
+        Performance Prediction, Analytics Dashboard,
+        Prediction History and CSV Report Download.
+    </p>
+
+    <a href="{{ url_for('home') }}">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

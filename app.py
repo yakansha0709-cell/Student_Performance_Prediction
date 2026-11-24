@@ -6,13 +6,15 @@ import pandas as pd
 import joblib
 from flask import Flask, Response, render_template, request
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
+
 project_dir = Path(__file__).resolve().parent
 
-# Generate dataset if missing
+# Generate the dataset automatically if it is missing after deployment.
 dataset_path = project_dir / "static" / "dataset" / "student.csv"
 if not dataset_path.exists():
     import runpy
+
     runpy.run_path(str(project_dir / "generate_data.py"))
 
 # Load trained AI model
