@@ -7,13 +7,19 @@ import joblib
 from flask import Flask, Response, render_template, request
 
 app = Flask(__name__)
+project_dir = Path(__file__).resolve().parent
+
+# Generate dataset if missing
+dataset_path = project_dir / "static" / "dataset" / "student.csv"
+if not dataset_path.exists():
+    import runpy
+    runpy.run_path(str(project_dir / "generate_data.py"))
 
 # Load trained AI model
-project_dir = Path(__file__).resolve().parent
 model = joblib.load(project_dir / "student_model.pkl")
 
 # Load student dataset
-data = pd.read_csv(project_dir / "static" / "dataset" / "student.csv")
+data = pd.read_csv(dataset_path)
 
 # Calculate dashboard statistics
 total_students = len(data)
